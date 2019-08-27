@@ -46,6 +46,15 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<ReservationHistory> reservationHistories;
 
+    @Transient
+    private String operation;
+
+    @Transient
+    private int roleId;
+
+    @Transient
+    private String newPassword;
+
     public User() {
     }
 
@@ -137,5 +146,29 @@ public class User {
 
     public void setReservationHistories(Set<ReservationHistory> reservationHistories) {
         this.reservationHistories = reservationHistories;
+    }
+
+    public String getOperation() {
+        return operation;
+    }
+
+    public void setOperation(String operation) {
+        this.operation = operation;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 }

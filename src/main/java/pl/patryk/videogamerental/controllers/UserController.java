@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.patryk.videogamerental.model.User;
 import pl.patryk.videogamerental.services.UserService;
+import pl.patryk.videogamerental.utilities.UserUtilities;
+import pl.patryk.videogamerental.validator.ChangeUserDataValidator;
+import pl.patryk.videogamerental.validator.ChangeUserPasswordValidator;
 
 import javax.validation.Valid;
 
@@ -41,6 +44,44 @@ public class UserController {
             userService.saveUser(user);
             model.addAttribute("message", "Rejestracja zakończona pomyślnie. Za 3 sekundy zostaniesz przeniesiony do strony logowania.");
             return "afterregister";
+        }
+    }
+
+    @GetMapping(value = "/profile")
+    public String showUserProfile(Model model) {
+        String userEmail = UserUtilities.getLoggedUser();
+        User user = userService.findUserByEmail(userEmail);
+        int roleId = user.getRoles().iterator().next().getId();
+        user.setRoleId(roleId);
+        model.addAttribute("user", user);
+
+        return "profile";
+    }
+
+    @PostMapping(value = "/updateprofile")
+    public String updateUserProfile(User user, BindingResult bindingResult, Model model) {
+        new ChangeUserDataValidator().validate(user, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "profile";
+        } else {
+            userService.updateUserProfile(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhoneNumber(), user.getId());
+            model.addAttribute("message", "Dane zmienione pomyślnie. Za 3 sekundy zostaniesz wylogowany. Zaloguj się ponownie.");
+            return "afteredit";
+        }
+    }
+
+    @PostMapping(value = "/updatepass")
+    public String updateUserPassword(User user, BindingResult bindingResult, Model model) {
+        new ChangeUserPasswordValidator().validate(user, bindingResult);
+        new ChangeUserPasswordValidator().checkPassword(user.getNewPassword(), bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "profile";
+        } else {
+            userService.updateUserPassword(user.getNewPassword(), user.getEmail());
+            model.addAttribute("message", "Hasło zostało zmienione. Za 3 sekundy zostaniesz wylogowany. Zaloguj się ponownie.");
+            return "afteredit";
         }
     }
 }

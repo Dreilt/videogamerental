@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil użytkownika</title>
+
+    <link th:href="@{/css/bootstrap-4.3.1-dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script th:src="@{/js/jquery-3.4.1.min.js}" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script th:src="@{/css/bootstrap-4.3.1-dist/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet" media="screen">
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 mt-1">
+            <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <li class="nav-item pill">
+                    <a class="nav-link active" data-toggle="tab" href="#editprofile">Edytuj profil</a>
+                </li>
+                <li class="nav-item pill">
+                    <a class="nav-link" data-toggle="tab" href="#changepassword">Zmień hasło</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="editprofile" role="tabpanel">
+                    <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" th:action="@{/updateprofile}" th:object="${user}">
+                        <div class="col-md-8 offset-md-2 text-center">
+                            <h2>Edytuj profil</h2>
+                            <hr>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <div class="col-md-8 offset-md-2">
+                                <input type="text" class="form-control" id="id" th:field="*{id}" hidden>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <div class="row">
+                                <div class="col-md-3 text-right">
+                                    <label for="firstname">Imię</label>
+                                </div>
+                                <div class="col-md-7 text-center">
+                                    <input type="text" class="form-control" id="firstname" th:field="*{firstName}">
+                                </div>
+                            </div>
+                            <div class="col-md-7 offset-md-3">
+                                <div class="form-control-feedback">
+                                    <span style="color: red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <div class="row">
+                                <div class="col-md-3 text-right">
+                                    <label for="lastname">Nazwisko</label>
+                                </div>
+                                <div class="col-md-7 text-center">
+                                    <input type="text" class="form-control" id="lastname" th:field="*{lastName}">
+                                </div>
+                            </div>
+                            <div class="col-md-7 offset-md-3">
+                                <div class="form-control-feedback">
+                                    <span style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <div class="row">
+                                <div class="col-md-3 text-right">
+                                    <label for="email">Email</label>
+                                </div>
+                                <div class="col-md-7 text-center">
+                                    <input type="email" class="form-control" id="email" th:field="*{email}">
+                                </div>
+                            </div>
+                            <div class="col-md-7 offset-md-3">
+                                <div class="form-control-feedback">
+                                    <span style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <div class="row">
+                                <div class="col-md-3 text-right">
+                                    <label for="phoneNumber">Numer telefonu (+48)</label>
+                                </div>
+                                <div class="col-md-7 text-center">
+                                    <input type="tel" class="form-control" id="phoneNumber" th:field="*{phoneNumber}">
+                                </div>
+                            </div>
+                            <div class="col-md-7 offset-md-3">
+                                <div class="form-control-feedback">
+                                    <span style="color: red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7 offset-md-3 text-center">
+                            <button class="btn btn-app" type="submit">Potwierdź</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="changepassword" role="tabpanel">
+                    <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" th:action="@{/updatepass}" th:object="${user}">
+                        <div class="col-md-8 offset-md-2 text-center">
+                            <h2>Zmień hasło</h2>
+                            <hr>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <div class="col-md-8 offset-md-2">
+                                <input type="text" class="form-control" id="email2" th:field="*{email}" hidden>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <div class="row">
+                                <div class="col-md-3 text-right">
+                                    <label for="newPassword">Nowe hasło</label>
+                                </div>
+                                <div class="col-md-7 text-center">
+                                    <input type="password" class="form-control" id="newPassword" placeholder="Nowe hasło" th:field="*{newPassword}">
+                                </div>
+                            </div>
+                            <div class="col-md-7 offset-md-3">
+                                <div class="form-control-feedback">
+                                    <span style="color: red" th:if="${#fields.hasErrors('newPassword')}" th:errors="*{newPassword}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 offset-md-4 text-center">
+                            <button class="btn btn-app" type="submit">Zmień</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

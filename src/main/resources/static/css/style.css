@@ -39,3 +39,13 @@ h3 {
     color: grey;
     padding-top: 25px;
 }
+
+.nav-pills .pill .nav-link:not(.active) {
+    background-color: white;
+    color: darkgrey;
+}
+
+.nav-pills .pill .nav-link {
+    background-color: orange;
+    color: white;
+}

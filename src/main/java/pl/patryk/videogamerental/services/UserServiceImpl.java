@@ -8,10 +8,12 @@ import pl.patryk.videogamerental.model.User;
 import pl.patryk.videogamerental.repositories.RoleRepository;
 import pl.patryk.videogamerental.repositories.UserRepository;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.HashSet;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -35,5 +37,15 @@ public class UserServiceImpl implements UserService {
         user.setRoles(new HashSet<Role>(Arrays.asList(role)));
         user.setActive(1);
         userRepository.save(user);
+    }
+
+    @Override
+    public void updateUserPassword(String newPassword, String email) {
+        userRepository.updateUserPassword(bCryptPasswordEncoder.encode(newPassword), email);
+    }
+
+    @Override
+    public void updateUserProfile(String newFirstName, String newLastName, String newEmail, String newPhoneNumber, long id) {
+        userRepository.updateUserProfile(newFirstName, newLastName, newEmail, newPhoneNumber, id);
     }
 }
