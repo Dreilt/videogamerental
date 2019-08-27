@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj egzemplarz gry</title>
+
+    <link th:href="@{/css/bootstrap-4.3.1-dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script th:src="@{/js/jquery-3.4.1.min.js}" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script th:src="@{/css/bootstrap-4.3.1-dist/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet" media="screen">
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container">
+    <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" th:action="@{/addcopy}" th:object="${copy}">
+        <div class="col-md-6 offset-md-3 text-center">
+            <div class="alert alert-success" role="alert" th:if="${msgSuccess}" th:utext="${msgSuccess}"></div>
+        </div>
+        <div class="col-md-6 offset-md-3 text-center">
+            <h2>Dodaj nowy egzemplarz</h2>
+            <hr>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="inputGame">Gra</label>
+                </div>
+                <div class="col-md-5 text-center">
+                    <select class="form-control" id="inputGame" th:field="*{game}">
+                        <option th:each="game : ${gameList}" th:value="${game.id}" th:text="${game.name}">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="inputHardwarePlatform">Platforma sprzętowa</label>
+                </div>
+                <div class="col-md-5 text-center">
+                    <select class="form-control" id="inputHardwarePlatform" th:field="*{hardwarePlatform}">
+                        <option th:value="'PC'">PC</option>
+                        <option th:value="'PlayStation 1'">PlayStation 1</option>
+                        <option th:value="'PlayStation 2'">PlayStation 2</option>
+                        <option th:value="'PlayStation 3'">PlayStation 3</option>
+                        <option th:value="'PlayStation 4'">PlayStation 4</option>
+                        <option th:value="'PSP'">PSP</option>
+                        <option th:value="'XBOX'">XBOX</option>
+                        <option th:value="'XBOX 360'">XBOX 360</option>
+                        <option th:value="'XBOX One'">XBOX One</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 offset-md-4 text-center">
+            <button class="btn btn-app" type="submit">Dodaj</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
