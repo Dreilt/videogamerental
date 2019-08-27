@@ -12,4 +12,12 @@ public interface CopyService {
     List<Copy> findAllCopiesByGameId(long gameId);
 
     void deleteCopy(long gameId, long copyId);
+
+    Copy findOneCopyById(long copyId);
+
+    void doReservation(Game game, Copy copy);
+
+    void doRent(Game game, Copy copy);
+
+    void doAvailable(Game game, Copy copy);
 }

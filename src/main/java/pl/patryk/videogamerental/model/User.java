@@ -43,6 +43,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Copy> copies;
 
+    @OneToMany(mappedBy = "user")
+    private Set<ReservationHistory> reservationHistories;
+
     public User() {
     }
 
@@ -126,5 +129,13 @@ public class User {
 
     public void setCopies(Set<Copy> copies) {
         this.copies = copies;
+    }
+
+    public Set<ReservationHistory> getReservationHistories() {
+        return reservationHistories;
+    }
+
+    public void setReservationHistories(Set<ReservationHistory> reservationHistories) {
+        this.reservationHistories = reservationHistories;
     }
 }

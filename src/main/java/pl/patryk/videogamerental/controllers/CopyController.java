@@ -43,4 +43,28 @@ public class CopyController {
         copyService.deleteCopy(gameId, copyId);
         return "redirect:/game/{gameId}";
     }
+
+    @GetMapping(value = "/game/{gameId}/copy/{copyId}=reserved")
+    public String copyReservation(@PathVariable(value = "gameId") long gameId, @PathVariable(value = "copyId") long copyId) {
+        Game game = gameService.findOneGameById(gameId);
+        Copy copy = copyService.findOneCopyById(copyId);
+        copyService.doReservation(game, copy);
+        return "redirect:/game/{gameId}";
+    }
+
+    @GetMapping(value = "/game/{gameId}/copy/{copyId}=rented")
+    public String copyRent(@PathVariable(value = "gameId") long gameId, @PathVariable(value = "copyId") long copyId) {
+        Game game = gameService.findOneGameById(gameId);
+        Copy copy = copyService.findOneCopyById(copyId);
+        copyService.doRent(game, copy);
+        return "redirect:/game/{gameId}";
+    }
+
+    @GetMapping(value = "/game/{gameId}/copy/{copyId}=available")
+    public String copyAvailable(@PathVariable(value = "gameId") long gameId, @PathVariable(value = "copyId") long copyId) {
+        Game game = gameService.findOneGameById(gameId);
+        Copy copy = copyService.findOneCopyById(copyId);
+        copyService.doAvailable(game, copy);
+        return "redirect:/game/{gameId}";
+    }
 }

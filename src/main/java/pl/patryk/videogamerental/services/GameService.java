@@ -18,4 +18,6 @@ public interface GameService {
     void updateGame(Game game, long gameId);
 
     void deleteGame(long gameId);
+
+    List<Game> findReservedGames(long userId);
 }

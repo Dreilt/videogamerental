@@ -72,8 +72,23 @@
                         <div class="text-center" th:if="${copy.reserved == 0}">
                             Brak rezerwacji
                         </div>
+                        <div class="text-center" th:if="${copy.reserved == 1}">
+                            <a class="btn btn-app" role="button" th:href="@{'/game/' + ${game.id} + '/copy/' + ${copy.id} + '=rented'}">Wypożycz</a>
+                        </div>
+                        <div class="text-center" th:if="${copy.reserved == 2}">
+                            <a class="btn btn-app" role="button" th:href="@{'/game/' + ${game.id} + '/copy/' + ${copy.id} + '=available'}">Odbierz</a>
+                        </div>
                     </td>
                     <td>
+                        <div class="text-center" th:if="${copy.reserved == 0}" sec:authorize="hasAuthority('ROLE_CLIENT')">
+                            <a class="btn btn-app" role="button" th:href="@{'/game/' + ${game.id} + '/copy/' + ${copy.id} + '=reserved'}">Rezerwuj</a>
+                        </div>
+                        <div class="text-center" th:if="${(copy.reserved == 1) and (copy.user == currentUser)}">
+                            <a class="btn btn-app" role="button" th:href="@{'/game/' + ${game.id} + '/copy/' + ${copy.id} + '=available'}">Anuluj rezerwację</a>
+                        </div>
+                        <div class="text-center" th:if="${copy.user != currentUser and copy.reserved == 1 or copy.reserved == 2}" sec:authorize="hasAuthority('ROLE_CLIENT')">
+                            Rezerwacja niemożliwa
+                        </div>
                         <div class="text-center" sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_EMPLOYEE')">
                             <a class="btn btn-app" role="button" th:href="@{'/game/' + ${game.id} + '/copy/' + ${copy.id} + '=delete'}">Usuń</a>
                         </div>

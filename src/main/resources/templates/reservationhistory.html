@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Twoja historia rezerwacji</title>
+
+    <link th:href="@{/css/bootstrap-4.3.1-dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script th:src="@{/js/jquery-3.4.1.min.js}" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script th:src="@{/css/bootstrap-4.3.1-dist/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet" media="screen">
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container">
+    <div class="col-md-12">
+        <h2 class="text-center">Historia Twoich rezerwacji</h2>
+        <div class="text-center" th:if="${#lists.isEmpty(reservedGameList)}">
+            <h3>Twoja historia rezerwacji jest pusta</h3>
+        </div>
+        <div class="row list text-center" th:if="${not #lists.isEmpty(reservedGameList)}">
+            <div class="col-md-4" th:each="game : ${reservedGameList}">
+                <div class="game-title" th:text="${game.name}"></div>
+                <img th:src="@{'data:image/jpeg;base64,' + ${game.generateBase64Image()}}">
+                <div style="padding-top: 5px;">
+                    <a class="btn btn-app" role="button" th:href="@{'/games/' + ${game.id}}">Wypożycz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

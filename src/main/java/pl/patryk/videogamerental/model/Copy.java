@@ -3,6 +3,7 @@ package pl.patryk.videogamerental.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "copies")
@@ -24,6 +25,9 @@ public class Copy {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = true)
     private User user;
+
+    @OneToMany(mappedBy = "copy")
+    private Set<ReservationHistory> reservationHistories;
 
     public Copy() {
     }

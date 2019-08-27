@@ -88,4 +88,14 @@ public class GameController {
         gameService.deleteGame(gameId);
         return "redirect:/games";
     }
+
+    @GetMapping(value = "/reservationhistory")
+    public String showReservedGames(Model model) {
+        String userEmail = UserUtilities.getLoggedUser();
+        User user = userService.findUserByEmail(userEmail);
+        long userId = user.getId();
+
+        model.addAttribute("reservedGameList", gameService.findReservedGames(userId));
+        return "reservationhistory";
+    }
 }

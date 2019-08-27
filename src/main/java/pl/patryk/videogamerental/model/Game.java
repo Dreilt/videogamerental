@@ -29,6 +29,9 @@ public class Game {
     @OneToMany(mappedBy = "game")
     private Set<Copy> copies;
 
+    @OneToMany(mappedBy = "game")
+    private Set<ReservationHistory> reservationHistories;
+
     public Game() {
     }
 

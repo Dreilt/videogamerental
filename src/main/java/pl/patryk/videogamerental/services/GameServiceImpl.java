@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.patryk.videogamerental.model.Copy;
 import pl.patryk.videogamerental.model.Game;
+import pl.patryk.videogamerental.model.ReservationHistory;
 import pl.patryk.videogamerental.repositories.CopyRepository;
 import pl.patryk.videogamerental.repositories.GameRepository;
+import pl.patryk.videogamerental.repositories.ReservationHistoryRepository;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,6 +22,9 @@ public class GameServiceImpl implements GameService {
 
     @Autowired
     private CopyRepository copyRepository;
+
+    @Autowired
+    private ReservationHistoryRepository reservationHistoryRepository;
 
     @Override
     public Game findGameByName(String name) {
@@ -54,5 +60,16 @@ public class GameServiceImpl implements GameService {
     public void deleteGame(long gameId) {
         gameRepository.deleteById(gameId);
         copyRepository.deleteAllCopiesByGameId(gameId);
+    }
+
+    @Override
+    public List<Game> findReservedGames(long userId) {
+        List<ReservationHistory> historyList = reservationHistoryRepository.findReservationHistoryByUserId(userId);
+        List<Game> gameList = new ArrayList<>();
+        for (ReservationHistory reservationHistory : historyList) {
+            gameList.add(reservationHistory.getGame());
+        }
+
+        return gameList;
     }
 }
