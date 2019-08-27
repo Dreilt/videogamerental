@@ -36,4 +36,9 @@ public class GameServiceImpl implements GameService {
     public List<Game> findAllGames() {
         return gameRepository.findAll();
     }
+
+    @Override
+    public Game findOneGameById(long gameId) {
+        return gameRepository.findById(gameId).orElse(null);
+    }
 }

@@ -4,11 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.patryk.videogamerental.forms.GameForm;
 import pl.patryk.videogamerental.model.Copy;
 import pl.patryk.videogamerental.model.Game;
+import pl.patryk.videogamerental.model.User;
+import pl.patryk.videogamerental.services.CopyService;
 import pl.patryk.videogamerental.services.GameService;
+import pl.patryk.videogamerental.services.UserService;
+import pl.patryk.videogamerental.utilities.UserUtilities;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -18,6 +23,12 @@ public class GameController {
 
     @Autowired
     private GameService gameService;
+
+    @Autowired
+    private CopyService copyService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping(value = "/addgame")
     public String showGameAddingForm(Model model) {
@@ -40,5 +51,23 @@ public class GameController {
             model.addAttribute("game", new Game());
             return "addgame";
         }
+    }
+
+    @GetMapping(value = "/games")
+    public String showAllGames(Model model) {
+        model.addAttribute("gameList", gameService.findAllGames());
+        return "games";
+    }
+
+    @GetMapping(value = "/game/{gameId}")
+    public String showOneGame(@PathVariable(value = "gameId") long gameId, Model model) {
+        model.addAttribute("game", gameService.findOneGameById(gameId));
+        model.addAttribute("copyList", copyService.findAllCopiesByGameId(gameId));
+
+        String userEmail = UserUtilities.getLoggedUser();
+        User user = userService.findUserByEmail(userEmail);
+        model.addAttribute("currentUser", user);
+
+        return "game";
     }
 }

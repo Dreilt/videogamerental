@@ -1,6 +1,7 @@
 package pl.patryk.videogamerental.model;
 
 import javax.persistence.*;
+import java.util.Base64;
 import java.util.Set;
 
 @Entity
@@ -112,6 +113,10 @@ public class Game {
 
     public void setCover(byte[] cover) {
         this.cover = cover;
+    }
+
+    public String generateBase64Image() {
+        return Base64.getEncoder().encodeToString(cover);
     }
 
     public Set<Copy> getCopies() {

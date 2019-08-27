@@ -12,4 +12,6 @@ public interface GameService {
     void saveGame(Game game, Copy copy);
 
     List<Game> findAllGames();
+
+    Game findOneGameById(long gameId);
 }

@@ -6,6 +6,8 @@ import pl.patryk.videogamerental.model.Copy;
 import pl.patryk.videogamerental.model.Game;
 import pl.patryk.videogamerental.repositories.CopyRepository;
 
+import java.util.List;
+
 @Service
 public class CopyServiceImpl implements CopyService {
 
@@ -18,5 +20,10 @@ public class CopyServiceImpl implements CopyService {
         copy.setGame(game);
         copy.setUser(null);
         copyRepository.save(copy);
+    }
+
+    @Override
+    public List<Copy> findAllCopiesByGameId(long gameId) {
+        return copyRepository.findAllCopiesByGameId(gameId);
     }
 }

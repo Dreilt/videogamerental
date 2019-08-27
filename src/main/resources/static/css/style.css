@@ -19,3 +19,23 @@ h3 {
     background-color: orange;
     color: white;
 }
+
+.game-title {
+    font-size: 25px;
+    font-weight: bold;
+    color: grey;
+}
+
+.space {
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+    padding-top: 25px;
+}
+
+.copy-list {
+    font-size: 25px;
+    font-weight: bold;
+    color: grey;
+    padding-top: 25px;
+}

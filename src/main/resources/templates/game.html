@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${game.name}"></title>
+
+    <link th:href="@{/css/bootstrap-4.3.1-dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script th:src="@{/js/jquery-3.4.1.min.js}" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script th:src="@{/css/bootstrap-4.3.1-dist/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet" media="screen">
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <div class="game-title" th:text="${game.name}"></div>
+                <img th:src="@{'data:image/jpeg;base64,' + ${game.generateBase64Image()}}">
+            </div>
+            <div class="col-md-8">
+                <div class="space">SPACE</div>
+                <b class="row">Opis gry</b>
+                <div class="row" th:text="${game.description}"></div>
+                <br>
+                <div class="row">
+                    <b>Producent:&nbsp;</b>
+                    <div th:text="${game.developer}"></div>
+                </div>
+                <div class="row">
+                    <b>Wydawca:&nbsp;</b>
+                    <div th:text="${game.publisher}"></div>
+                </div>
+                <div class="row">
+                    <b>Język gry:&nbsp;</b>
+                    <div th:text="${game.gameLanguage}"></div>
+                </div>
+                <div class="row">
+                    <b>Język napisów:&nbsp;</b>
+                    <div th:text="${game.subtitleLanguage}"></div>
+                </div>
+                <div class="row">
+                    <b>Kategoria wiekowa:&nbsp;</b>
+                    <div th:text="${game.rating}"></div>
+                </div>
+            </div>
+        </div>
+        <div class="copy-list text-center">Lista egzemplarzy</div>
+        <hr>
+        <div class="text-center" th:if="${not #lists.isEmpty(copyList)}">
+            <table class="table table-bordered text-left">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Numer egzemplarza</th>
+                    <th>Platforma sprzętowa</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="copy : ${copyList}">
+                    <td th:text="${copy.id}"></td>
+                    <td th:text="${copy.hardwarePlatform}"></td>
+                    <td>
+                        <span th:if="${copy.reserved == 0}" th:text="Dostępny"></span>
+                        <span th:if="${copy.reserved == 1}" th:text="Zarezerwowany"></span>
+                        <span th:if="${copy.reserved == 2}" th:text="Wypożyczony"></span>
+                    </td>
+                    <td sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_EMPLOYEE')">
+                        <div class="text-center" th:if="${copy.reserved == 0}">
+                            Brak rezerwacji
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
