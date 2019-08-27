@@ -14,4 +14,8 @@ public interface GameService {
     List<Game> findAllGames();
 
     Game findOneGameById(long gameId);
+
+    void updateGame(Game game, long gameId);
+
+    void deleteGame(long gameId);
 }

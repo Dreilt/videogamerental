@@ -70,4 +70,22 @@ public class GameController {
 
         return "game";
     }
+
+    @GetMapping(value = "/game/{gameId}=edit")
+    public String editGame(@PathVariable(value = "gameId") long gameId, Model model) {
+        model.addAttribute("game", gameService.findOneGameById(gameId));
+        return "gameedit";
+    }
+
+    @PostMapping(value = "/game/{gameId}=edit")
+    public String updateGame(@PathVariable(value = "gameId") long gameId, Game game) {
+        gameService.updateGame(game, gameId);
+        return "redirect:/game/{gameId}";
+    }
+
+    @GetMapping(value = "/game/{gameId}=delete")
+    public String deleteGame(@PathVariable(value = "gameId") long gameId) {
+        gameService.deleteGame(gameId);
+        return "redirect:/games";
+    }
 }

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Edytuj grę</title>
+
+    <link th:href="@{/css/bootstrap-4.3.1-dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script th:src="@{/js/jquery-3.4.1.min.js}" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script th:src="@{/css/bootstrap-4.3.1-dist/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet" media="screen">
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container">
+    <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" th:action="@{'/game/' + ${game.id} + '=edit'}" th:object="${game}">
+        <div class="col-md-6 offset-md-3 text-center">
+            <h2>Edytuj grę</h2>
+            <hr>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="inputName">Nazwa</label>
+                </div>
+                <div class="col-md-5 text-center">
+                    <input type="text" class="form-control" id="inputName" th:field="*{name}">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="inputDescription">Opis</label>
+                </div>
+                <div class="col-md-5 text-center">
+                    <input type="text" class="form-control" id="inputDescription" th:field="*{description}">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="inputDeveloper">Producent</label>
+                </div>
+                <div class="col-md-5 text-center">
+                    <input type="text" class="form-control" id="inputDeveloper" th:field="*{developer}">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="inputPublisher">Wydawca</label>
+                </div>
+                <div class="col-md-5 text-center">
+                    <input type="text" class="form-control" id="inputPublisher" th:field="*{publisher}">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="inputGameLanguage">Język gry</label>
+                </div>
+                <div class="col-md-5 text-center">
+                    <input type="text" class="form-control" id="inputGameLanguage" th:field="*{gameLanguage}">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="inputSubtitleLanguage">Język napisów</label>
+                </div>
+                <div class="col-md-5 text-center">
+                    <input type="text" class="form-control" id="inputSubtitleLanguage" th:field="*{subtitleLanguage}">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="inputRating">Kategoria wiekowa</label>
+                </div>
+                <div class="col-md-5 text-center">
+                    <select class="form-control" id="inputRating" th:field="*{rating}">
+                        <option th:value="'3+'">3+</option>
+                        <option th:value="'7+'">7+</option>
+                        <option th:value="'12+'">12+</option>
+                        <option th:value="'16+'">16+</option>
+                        <option th:value="'18+'">18+</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 offset-md-4 text-center">
+            <button class="btn btn-app" type="submit">Potwierdź</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

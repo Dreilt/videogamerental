@@ -7,9 +7,11 @@ import pl.patryk.videogamerental.model.Game;
 import pl.patryk.videogamerental.repositories.CopyRepository;
 import pl.patryk.videogamerental.repositories.GameRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class GameServiceImpl implements GameService {
 
     @Autowired
@@ -40,5 +42,17 @@ public class GameServiceImpl implements GameService {
     @Override
     public Game findOneGameById(long gameId) {
         return gameRepository.findById(gameId).orElse(null);
+    }
+
+
+    @Override
+    public void updateGame(Game game, long gameId) {
+        gameRepository.updateGame(game.getName(), game.getDescription(), game.getDeveloper(), game.getPublisher(), game.getGameLanguage(), game.getSubtitleLanguage(), game.getRating(), gameId);
+    }
+
+    @Override
+    public void deleteGame(long gameId) {
+        gameRepository.deleteById(gameId);
+        copyRepository.deleteAllCopiesByGameId(gameId);
     }
 }

@@ -10,4 +10,6 @@ import java.util.List;
 public interface CopyRepository extends JpaRepository<Copy, Long> {
 
     List<Copy> findAllCopiesByGameId(long gameId);
+
+    void deleteAllCopiesByGameId(long gameId);
 }

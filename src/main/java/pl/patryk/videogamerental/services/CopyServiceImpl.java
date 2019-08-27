@@ -26,4 +26,9 @@ public class CopyServiceImpl implements CopyService {
     public List<Copy> findAllCopiesByGameId(long gameId) {
         return copyRepository.findAllCopiesByGameId(gameId);
     }
+
+    @Override
+    public void deleteCopy(long gameId, long copyId) {
+        copyRepository.deleteById(copyId);
+    }
 }

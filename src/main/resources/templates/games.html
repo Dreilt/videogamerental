@@ -22,6 +22,10 @@
                 <div style="padding-top: 5px;">
                     <a class="btn btn-app" role="button" th:href="@{'/game/' + ${game.id}}">Wypożycz</a>
                 </div>
+                <div style="padding-top: 5px;" sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_EMPLOYEE')">
+                    <a class="btn btn-app" role="button" th:href="@{'/game/' + ${game.id} + '=edit'}">Edytuj</a>
+                    <a class="btn btn-app" role="button" th:href="@{'/game/' + ${game.id} + '=delete'}">Usuń</a>
+                </div>
             </div>
         </div>
     </div>

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.patryk.videogamerental.model.Copy;
 import pl.patryk.videogamerental.model.Game;
@@ -35,5 +36,11 @@ public class CopyController {
         model.addAttribute("gameList", gameService.findAllGames());
         model.addAttribute("copy", new Copy());
         return "addcopy";
+    }
+
+    @GetMapping(value = "/game/{gameId}/copy/{copyId}=delete")
+    public String deleteCopy(@PathVariable(value = "gameId") long gameId, @PathVariable(value = "copyId") long copyId) {
+        copyService.deleteCopy(gameId, copyId);
+        return "redirect:/game/{gameId}";
     }
 }

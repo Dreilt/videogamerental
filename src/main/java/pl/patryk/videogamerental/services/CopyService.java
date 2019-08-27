@@ -10,4 +10,6 @@ public interface CopyService {
     void saveCopy(Game game, Copy copy);
 
     List<Copy> findAllCopiesByGameId(long gameId);
+
+    void deleteCopy(long gameId, long copyId);
 }
