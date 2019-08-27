@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Użytkownicy</title>
+
+    <link th:href="@{/css/bootstrap-4.3.1-dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script th:src="@{/js/jquery-3.4.1.min.js}" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script th:src="@{/css/bootstrap-4.3.1-dist/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet" media="screen">
+</head>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container">
+    <div class="col-md-6 offset-md-3 text-center">
+        <h2>Lista użytkowników</h2>
+        <hr>
+    </div>
+    <div class="text-center">
+        <table class="table table-bordered text-left">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Email</th>
+                <th>Numer telefonu</th>
+                <th>Aktywny</th>
+                <th>Rola</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${userList}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.phoneNumber}"></td>
+                <td>
+                    <span th:if="${user.active == 1}" style="color: green" th:text="Tak"></span>
+                    <span th:if="${user.active == 0}" style="color: red" th:text="Nie"></span>
+                </td>
+                <td>
+                    <span th:if="${user.roleId == 1}" th:text="Administrator"></span>
+                    <span th:if="${user.roleId == 2}" th:text="Pracownik"></span>
+                    <span th:if="${user.roleId == 3}" th:text="Klient"></span>
+                </td>
+                <td class="text-center">
+                    <a class="btn btn-app" role="button" th:href="@{'/admin/user/' + ${user.id} + '=edit'}">Zmień rolę lub aktywność</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

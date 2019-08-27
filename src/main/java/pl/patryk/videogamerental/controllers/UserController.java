@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import pl.patryk.videogamerental.model.User;
 import pl.patryk.videogamerental.services.UserService;
@@ -83,5 +84,26 @@ public class UserController {
             model.addAttribute("message", "Hasło zostało zmienione. Za 3 sekundy zostaniesz wylogowany. Zaloguj się ponownie.");
             return "afteredit";
         }
+    }
+
+
+    @GetMapping(value = "/admin/users")
+    public String showAllUsers(Model model) {
+        model.addAttribute("userList", userService.findAllUsers());
+        return "admin/users";
+    }
+
+    @GetMapping(value = "/admin/user/{userId}=edit")
+    public String editUserRoleOrActivity(@PathVariable("userId") long userId, Model model) {
+        model.addAttribute("user", userService.findUserById(userId));
+        return "admin/useredit";
+    }
+
+    @PostMapping(value = "/admin/user/{userId}=update")
+    public String updateUserRoleOrActivity(@PathVariable("userId") long userId, User user) {
+        int roleId = user.getRoleId();
+        int isActive = user.getActive();
+        userService.updateUserRoleOrActivity(roleId, isActive, userId);
+        return "redirect:/admin/users";
     }
 }

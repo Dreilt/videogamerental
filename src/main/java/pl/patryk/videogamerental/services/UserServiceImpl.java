@@ -11,6 +11,7 @@ import pl.patryk.videogamerental.repositories.UserRepository;
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 @Transactional
@@ -47,5 +48,31 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUserProfile(String newFirstName, String newLastName, String newEmail, String newPhoneNumber, long id) {
         userRepository.updateUserProfile(newFirstName, newLastName, newEmail, newPhoneNumber, id);
+    }
+
+    @Override
+    public List<User> findAllUsers() {
+        List<User> userList = userRepository.findAll();
+        for (User user : userList) {
+            int roleId = user.getRoles().iterator().next().getId();
+            user.setRoleId(roleId);
+        }
+
+        return userList;
+    }
+
+    @Override
+    public User findUserById(long userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        int roleId = user.getRoles().iterator().next().getId();
+        user.setRoleId(roleId);
+
+        return user;
+    }
+
+    @Override
+    public void updateUserRoleOrActivity(int roleId, int activity, long userId) {
+        userRepository.updateUserRole(roleId, userId);
+        userRepository.updateUserActivity(activity, userId);
     }
 }

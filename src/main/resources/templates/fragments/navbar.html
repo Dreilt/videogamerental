@@ -30,6 +30,16 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown" sec:authorize="hasAuthority('ROLE_ADMIN')">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Panel administratora
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" th:href="@{/addgame}">Dodaj grę</a>
+                        <a class="dropdown-item" th:href="@{/addcopy}">Dodaj egzemplarz gry</a>
+                        <a class="dropdown-item" th:href="@{'/admin/users'}">Użytkownicy</a>
+                    </div>
+                </li>
                 <li class="nav-item dropdown" sec:authorize="hasAuthority('ROLE_EMPLOYEE')">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

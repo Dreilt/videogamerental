@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Edytuj rolę lub aktywność użytkownika</title>
+
+    <link th:href="@{/css/bootstrap-4.3.1-dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script th:src="@{/js/jquery-3.4.1.min.js}" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script th:src="@{/css/bootstrap-4.3.1-dist/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet" media="screen">
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container">
+    <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" th:action="@{'/admin/user/' + ${user.id} + '=update'}" th:object="${user}">
+        <div class="col-md-6 offset-md-3 text-center">
+            <h2>Edytuj rolę lub aktywność użytkownika</h2>
+            <hr>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-5 offset-md-4 text-center">
+                    <input type="text" class="form-control" id="id" th:field="*{id}" hidden>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="firstname">Imię</label>
+                </div>
+                <div class="col-md-5 text-center">
+                    <input type="text" class="form-control" id="firstname" th:field="*{firstName}" readonly>
+                </div>
+            </div>
+            <div class="col-md-5 offset-md-4">
+                <div class="form-control-feedback">
+                    <span style="color: red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="lastName">Nazwisko</label>
+                </div>
+                <div class="col-md-5 text-center">
+                    <input type="text" class="form-control" id="lastName" th:field="*{lastName}" readonly>
+                </div>
+            </div>
+            <div class="col-md-5 offset-md-4">
+                <div class="form-control-feedback">
+                    <span style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="email">Email</label>
+                </div>
+                <div class="col-md-5 text-center">
+                    <input type="text" class="form-control" id="email" th:field="*{email}" readonly>
+                </div>
+            </div>
+            <div class="col-md-5 offset-md-4">
+                <div class="form-control-feedback">
+                    <span style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="role">Rola</label>
+                </div>
+                <div class="col-md-5 text-center">
+                    <select class="form-control" id="role" th:field="*{roleId}">
+                        <option th:value="'1'" th:text="Administrator"></option>
+                        <option th:value="'2'" th:text="Pracownik"></option>
+                        <option th:value="'3'" th:text="Użytkownik"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="activity">Aktywny</label>
+                </div>
+                <div class="col-md-5 text-center">
+                    <select class="form-control" id="activity" th:field="*{active}">
+                        <option th:value="'1'" th:text="Tak"></option>
+                        <option th:value="'0'" th:text="Nie"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 offset-md-4 text-center">
+            <button class="btn btn-app" type="submit">Potwierdź</button>
+            <button class="btn btn-app" type="button" onclick="window.location.href='/admin/users'">Anuluj</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
