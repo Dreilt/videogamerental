@@ -10,6 +10,21 @@
     <link th:href="@{/css/style.css}" rel="stylesheet" media="screen">
 
     <script type="text/javascript">
+        function startSearch() {
+            var gameName = document.getElementById('searchString').value;
+
+            if (gameName.length < 3) {
+                document.getElementById("errorSearch").innerHTML = "&nbsp;Wprowadź minimum 3 znaki";
+                return false;
+            } else {
+                document.getElementById("errorSearch").innerHTML = "";
+                var searchLink = '/search/' + gameName;
+                window.location.href = searchLink;
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
         function leave() {
             window.location = '/login';
         }

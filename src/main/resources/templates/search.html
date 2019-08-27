@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Dane zmienione pomyślnie</title>
+    <title th:text="'Wyniki wyszukiwania dla &quot;' + ${searchString} + '&quot;'"></title>
 
     <link th:href="@{/css/bootstrap-4.3.1-dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script th:src="@{/js/jquery-3.4.1.min.js}" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -23,19 +23,27 @@
             }
         }
     </script>
-
-    <script type="text/javascript">
-        function leave() {
-            window.location = '/logout';
-        }
-        setTimeout("leave()", 3000);
-    </script>
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 
 <div class="container">
-    <h2 class="text-center" th:text="${message}"></h2>
+    <div class="col-md-12">
+        <h2 class="text-center">Wyniki wyszukiwania dla "<span th:text="${searchString}"></span>":</h2>
+        <div class="row list text-center" th:if="${not #lists.isEmpty(resultList)}">
+            <div class="col-md-4" th:each="game : ${resultList}">
+                <div class="game-title" th:text="${game.name}"></div>
+                <img th:src="@{'data:image/jpeg;base64,' + ${game.generateBase64Image()}}">
+                <div style="padding-top: 5px;">
+                    <a class="btn btn-app" role="button" th:href="@{'/game/' + ${game.id}}">Wypożycz</a>
+                </div>
+                <div style="padding-top: 5px;" sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_EMPLOYEE')">
+                    <a class="btn btn-app" role="button" th:href="@{'/game/' + ${game.id} + '=edit'}">Edytuj</a>
+                    <a class="btn btn-app" role="button" th:href="@{'/game/' + ${game.id} + '=delete'}">Usuń</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

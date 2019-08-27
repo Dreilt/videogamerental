@@ -72,4 +72,9 @@ public class GameServiceImpl implements GameService {
 
         return gameList;
     }
+
+    @Override
+    public List<Game> findGameBySearch(String searchString) {
+        return gameRepository.findGameBySearch(searchString);
+    }
 }

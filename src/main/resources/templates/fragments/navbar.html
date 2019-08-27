@@ -8,6 +8,21 @@
     <script th:src="@{/js/jquery-3.4.1.min.js}" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script th:src="@{/css/bootstrap-4.3.1-dist/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <link th:href="@{/css/style.css}" rel="stylesheet" media="screen">
+
+    <script type="text/javascript">
+        function startSearch() {
+            var gameName = document.getElementById('searchString').value;
+
+            if (gameName.length < 3) {
+                document.getElementById("errorSearch").innerHTML = "&nbsp;Wprowadź minimum 3 znaki";
+                return false;
+            } else {
+                document.getElementById("errorSearch").innerHTML = "";
+                var searchLink = '/search/' + gameName;
+                window.location.href = searchLink;
+            }
+        }
+    </script>
 </head>
 <body>
 <div th:fragment="navbar">
@@ -27,6 +42,15 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/games}">Katalog gier</a>
+                </li>
+                <li class="nav-item">
+                    <form class="form-inline">
+                        <div class="md-form my-0">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Szukaj gry" id="searchString">
+                            <button class="btn btn-app my-2 my-sm-0" type="button" onclick="startSearch()">Szukaj</button>
+                            <span id="errorSearch" style="color: red;"></span>
+                        </div>
+                    </form>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">

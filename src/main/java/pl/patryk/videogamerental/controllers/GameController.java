@@ -98,4 +98,11 @@ public class GameController {
         model.addAttribute("reservedGameList", gameService.findReservedGames(userId));
         return "reservationhistory";
     }
+
+    @GetMapping(value = "/search/{searchString}")
+    public String searchGame(@PathVariable(value = "searchString") String searchString, Model model) {
+        model.addAttribute("resultList", gameService.findGameBySearch(searchString));
+        model.addAttribute("searchString", searchString);
+        return "search";
+    }
 }

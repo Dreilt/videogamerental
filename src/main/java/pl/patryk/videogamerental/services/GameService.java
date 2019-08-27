@@ -20,4 +20,6 @@ public interface GameService {
     void deleteGame(long gameId);
 
     List<Game> findReservedGames(long userId);
+
+    List<Game> findGameBySearch(String searchString);
 }

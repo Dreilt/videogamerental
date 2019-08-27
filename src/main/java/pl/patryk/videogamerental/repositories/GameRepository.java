@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import pl.patryk.videogamerental.model.Game;
 
+import java.util.List;
+
 @Repository
 public interface GameRepository extends JpaRepository<Game, Long> {
 
@@ -15,4 +17,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     @Modifying
     @Query(value = "UPDATE games g SET g.name = :newName, g.description = :newDescription, g.developer = :newDeveloper, g.publisher = :newPublisher, g.game_language = :newGameLanguage, g.subtitle_language = :newSubtitleLanguage, g.rating = :newRating WHERE g.id= :gameId", nativeQuery = true)
     void updateGame(@Param("newName") String newName, @Param("newDescription") String newDescription, @Param("newDeveloper") String newDeveloper, @Param("newPublisher") String newPublisher, @Param("newGameLanguage") String newGameLanguage, @Param("newSubtitleLanguage") String newSubtitleLanguage, @Param("newRating") String newRating, @Param("gameId") long gameId);
+
+    @Query(value = "SELECT * FROM games g WHERE g.name LIKE %:searchString%", nativeQuery = true)
+    List<Game> findGameBySearch(@Param("searchString") String searchString);
 }
