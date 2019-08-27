@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Strona główna wypożyczalni gier wideo</title>
+
+    <link th:href="@{/css/bootstrap-4.3.1-dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script th:src="@{/js/jquery-3.4.1.min.js}" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script th:src="@{/css/bootstrap-4.3.1-dist/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet" media="screen">
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container">
+    <div class="row col-md-12">
+        <h1 class="text-center">Witamy na stronie wypożyczalni gier wideo. Wypożycz grę w 3 prostych krokach:</h1>
+        <div class="col-md-4 text-center">
+            <img th:src="@{images/search.png}" th:width="256" th:height="256">
+            <h3>Wyszukaj interesującą Cię grę</h3>
+        </div>
+        <div class="col-md-4 text-center">
+            <img th:src="@{images/reservation.png}" th:width="256" th:height="256">
+            <h3>Zarezerwuj</h3>
+        </div>
+        <div class="col-md-4 text-center">
+            <img th:src="@{images/pick-up.png}" th:width="256" th:height="256">
+            <h3>Odbierz w punkcie</h3>
+        </div>
+    </div>
+</div>
+</body>
+</html>

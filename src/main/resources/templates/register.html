@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Rejestracja użytkownika</title>
+
+    <link th:href="@{/css/bootstrap-4.3.1-dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script th:src="@{/js/jquery-3.4.1.min.js}" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script th:src="@{/css/bootstrap-4.3.1-dist/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet" media="screen">
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container">
+    <form class="form-horizontal" role="form" enctype="multipart/form-data" method="post" th:action="@{/register}" th:object="${user}">
+        <div class="col-md-6 offset-md-3 text-center">
+            <h2>Rejestracja użytkownika</h2>
+            <hr>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="firstname">Imię</label>
+                </div>
+                <div class="col-md-5 text-center">
+                    <input type="text" class="form-control" id="firstname" th:field="*{firstName}">
+                </div>
+            </div>
+            <div class="col-md-5 offset-md-4">
+                <div class="form-control-feedback">
+                    <span style="color: red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="lastname">Nazwisko</label>
+                </div>
+                <div class="col-md-5 text-center">
+                    <input type="text" class="form-control" id="lastname" th:field="*{lastName}">
+                </div>
+            </div>
+            <div class="col-md-5 offset-md-4">
+                <div class="form-control-feedback">
+                    <span style="color: red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="email">Email</label>
+                </div>
+                <div class="col-md-5 text-center">
+                    <input type="email" class="form-control" id="email" th:field="*{email}">
+                </div>
+            </div>
+            <div class="col-md-5 offset-md-4">
+                <div class="form-control-feedback">
+                    <span style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="phoneNumber">Numer telefonu (+48)</label>
+                </div>
+                <div class="col-md-5 text-center">
+                    <input type="tel" class="form-control" id="phoneNumber" th:field="*{phoneNumber}">
+                </div>
+            </div>
+            <div class="col-md-5 offset-md-4">
+                <div class="form-control-feedback">
+                    <span style="color: red" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="password">Hasło</label>
+                </div>
+                <div class="col-md-5 text-center">
+                    <input type="password" class="form-control" id="password" th:field="*{password}">
+                </div>
+            </div>
+            <div class="col-md-5 offset-md-4">
+                <div class="form-control-feedback">
+                    <span style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 offset-md-4 text-center">
+            <button class="btn btn-app" type="submit">Utwórz konto</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

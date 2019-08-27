@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Logowanie</title>
+
+    <link th:href="@{/css/bootstrap-4.3.1-dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script th:src="@{/js/jquery-3.4.1.min.js}" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script th:src="@{/css/bootstrap-4.3.1-dist/js/bootstrap.min.js}" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet" media="screen">
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container">
+    <form class="form-horizontal" role="form" method="post" th:action="@{/login}">
+        <div class="col-md-4 offset-md-4 text-center">
+            <div class="alert alert-danger" role="alert" th:if="${param.error}">Adres email lub hasło jest nieprawidłowe.</div>
+        </div>
+        <div class="col-md-6 offset-md-3 text-center">
+            <h2>Zaloguj się</h2>
+            <hr>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="email">Email</label>
+                </div>
+                <div class="col-md-4 text-center">
+                    <input type="email" class="form-control" id="email" name="email">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <div class="row">
+                <div class="col-md-4 text-right">
+                    <label for="password">Hasło</label>
+                </div>
+                <div class="col-md-4 text-center">
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+            </div>
+        </div>
+        <div class="checkbox col-md-4 offset-md-4">
+            <label>
+                <input type="checkbox" name="remember-me"> Zapamiętaj mnie
+            </label>
+        </div>
+        <div class="col-md-4 offset-md-4 text-center">
+            <button class="btn btn-app" type="submit">Zaloguj</button>
+        </div>
+        <div class="text-center">Nie masz konta? <a style="color: orange; text-decoration: none;" th:href="@{/register}">Utwórz je!</a></div>
+    </form>
+</div>
+</body>
+</html>
